@@ -22,7 +22,10 @@ impl<T> BaseResponse<T> {
     }
 
     pub fn msg(&self) -> &str {
-        &self.raw_response.msg
+        match self.raw_response.msg.as_ref() {
+            Some(s) => s.as_str(),
+            None => "",   
+        }
     }
 
     pub fn err(&self) -> Option<&ErrorInfo> {
@@ -52,7 +55,7 @@ pub enum ResponseFormat {
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct RawResponse {
     pub code: i32,
-    pub msg: String,
+    pub msg: Option<String>,
     #[serde(rename = "error", default, skip_serializing_if = "Option::is_none")]
     pub err: Option<ErrorInfo>,
 }
@@ -65,7 +68,7 @@ impl ApiResponseTrait for RawResponse {
 
 impl Display for RawResponse {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "code: {}, msg: {}", self.code, self.msg)
+        write!(f, "code: {}, msg: {:?}", self.code, self.msg)
     }
 }
 

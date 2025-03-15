@@ -84,7 +84,7 @@ impl<T: ApiResponseTrait> Transport<T> {
                             BaseResponse {
                                 raw_response: RawResponse {
                                     code: raw_body["code"].as_i64().unwrap() as i32,
-                                    msg: raw_body["msg"].as_str().unwrap().to_string(),
+                                    msg: Some(raw_body["msg"].as_str().unwrap().to_string()),
                                     err: None,
                                 },
                                 data: None,
@@ -122,7 +122,7 @@ impl<T: ApiResponseTrait> Transport<T> {
                         Ok(BaseResponse {
                             raw_response: RawResponse {
                                 code: 0,
-                                msg: "success".to_string(),
+                                msg: Some("success".to_string()),
                                 err: None,
                             },
                             data: Some(data),

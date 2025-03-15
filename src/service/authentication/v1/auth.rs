@@ -7,6 +7,7 @@ use crate::core::req_option::RequestOption;
 use crate::core::SDKResult;
 use serde::Deserialize;
 
+#[derive(Debug, Clone)]
 pub struct UserInfoService {
     config: Config,
 }

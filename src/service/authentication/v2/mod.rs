@@ -3,15 +3,14 @@ pub use auth::*;
 mod auth;
 
 #[derive(Debug, Clone)]
-pub struct V1 {
-    /// 身份验证
-    pub user_info: UserInfoService,
+pub struct V2 {
+    pub oauth: TokenService,
 }
 
-impl V1 {
+impl V2 {
     pub fn new(config: crate::core::config::Config) -> Self {
         Self {
-            user_info: UserInfoService::new(config),
+            oauth: TokenService::new(config),
         }
     }
 }
